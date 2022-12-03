@@ -22,11 +22,48 @@ class Cell:
         btn.bind('<Button-1>', self.actionLC)
         btn.bind('<Button-3>', self.actionRC)
         self.btnObj = btn
-    
+
     def actionLC(self, event):
         if self.mineVal:
             self.dispMine()
+        else:
+            if self.theMinesSurrounding == 0:
+                for cellObj in self.theSurroundings:
+                    cellObj.dispCell()
+            self.dispCell()
     
+    def cellByAxis(self, x, y):
+        for cell in Cell.all:
+            if cell.x == x and cell.y == y:
+                return cell
+
+    @property
+    def theSurroundings(self):
+        cells = [ 
+            self.cellByAxis(self.x - 1, self.y - 1),
+            self.cellByAxis(self.x - 1, self.y),
+            self.cellByAxis(self.x - 1, self.y + 1),
+            self.cellByAxis(self.x, self.y - 1),
+            self.cellByAxis(self.x + 1, self.y - 1),
+            self.cellByAxis(self.x + 1, self.y),
+            self.cellByAxis(self.x + 1, self.y + 1),
+            self.cellByAxis(self.x, self.y + 1)
+        ]
+        
+        cells = [cell for cell in cells if cell is not None]
+        return cells
+
+    @property
+    def theMinesSurrounding(self):
+        counter = 0
+        for cell in self.theSurroundings:
+            if cell.mineVal:
+                counter += 1
+        return counter
+
+    def dispCell(self):
+        self.btnObj.configure(text = self.theMinesSurrounding)
+
     def dispMine(self):
         # > this will stop the game and tell the user they have lost
         self.btnObj.configure(bg = 'red')

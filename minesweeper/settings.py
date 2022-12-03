@@ -3,4 +3,5 @@ mainW = 640
 mainH = 480
 
 gridLen = 6
-numMines = (gridLen ** 2) // 4
+cellCount = gridLen ** 2
+numMines = cellCount // 4

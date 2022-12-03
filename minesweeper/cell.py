@@ -1,13 +1,19 @@
 # > need to create an individualized class for the cells on our minesweeper grid
-from tkinter import Button
+from tkinter import Button, Label
 import random
 import settings
+import ctypes
+import sys
 
 class Cell:
     all = []
+    cellCount = settings.cellCount
+    cellCountLabelObj = None
     # > constructor
     def __init__(self, x, y, mineVal = False):
         self.mineVal = mineVal
+        self.shown = False
+        self.possMine = False
         self.btnObj = None
         self.x = x
         self.y = y
@@ -23,6 +29,17 @@ class Cell:
         btn.bind('<Button-3>', self.actionRC)
         self.btnObj = btn
 
+    @staticmethod
+    def cellLabel(location):
+        label = Label(
+            location,
+            bg = '#CDCDCD',
+            fg = 'black',
+            text = f"Cells Left: {Cell.cellCount}",
+            font = ("",16)
+        )
+        Cell.cellCountLabelObj = label
+
     def actionLC(self, event):
         if self.mineVal:
             self.dispMine()
@@ -31,6 +48,11 @@ class Cell:
                 for cellObj in self.theSurroundings:
                     cellObj.dispCell()
             self.dispCell()
+            if Cell.cellCount == settings.numMines:
+                ctypes.windll.user32.MessageBoxW(0, 'You Won!', 'Game Over', 0)
+
+        self.btnObj.unbind('<Button-1>')
+        self.btnObj.unbind('<Button-3>')
     
     def cellByAxis(self, x, y):
         for cell in Cell.all:
@@ -62,14 +84,26 @@ class Cell:
         return counter
 
     def dispCell(self):
-        self.btnObj.configure(text = self.theMinesSurrounding)
+        if not self.shown:
+            Cell.cellCount -= 1
+            self.btnObj.configure(text = self.theMinesSurrounding)
+            if Cell.cellCountLabelObj:
+                Cell.cellCountLabelObj.configure(text = f"Cells Left: {Cell.cellCount}")
+            self.btnObj.configure(bg = 'SystemButtonFace')
+        self.shown = True
 
     def dispMine(self):
-        # > this will stop the game and tell the user they have lost
         self.btnObj.configure(bg = 'red')
+        ctypes.windll.user32.MessageBoxW(0, 'You clicked on a mine', 'Game Over', 0)
+        sys.exit()
 
     def actionRC(self, event):
-        print("here on the right")
+        if not self.possMine:
+            self.btnObj.configure( bg = '#FFAA29')
+            self.possMine = True
+        else:
+            self.btnObj.configure( bg = 'SystemButtonFace')
+            self.possMine = False
 
     @staticmethod
     def randomMineVals():

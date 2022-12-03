@@ -20,9 +20,20 @@ win.config(bg = '#CDCDCD')
 # > sets the title in the top banner of the frame
 win.title("Minesweeper_v1.0")
 
+
+
 # > this creates a new frame on our window
 frameTop = Frame(win, bg = '#CDCDCD', width = settings.mainW, height = utils.calcHeight(15))
 frameTop.place(x = 0, y = 0)
+
+gameTitle = Label(
+    frameTop,
+    bg = '#CDCDCD',
+    fg = 'black',
+    text = 'minesweeper',
+    font = ('', 16)
+)
+gameTitle.place(x = utils.calcWidth(25), y = 0)
 
 frameLS = Frame(win, bg = '#CDCDCD', width = utils.calcWidth(20), height = utils.calcHeight(80))
 frameLS.place(x = 0, y = utils.calcHeight(15))
@@ -45,6 +56,9 @@ for i in range(settings.gridLen):
         newCell = Cell(i, j)
         newCell.createBtnObj(frameCent)
         newCell.btnObj.grid(column = i, row = j)
+
+Cell.cellLabel(frameLS)
+Cell.cellCountLabelObj.place(x = 0, y = 0)
 
 Cell.randomMineVals()
 

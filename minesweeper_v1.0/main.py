@@ -34,19 +34,24 @@ frameTop.place(
     y = 0
 )
 
+win.update()
+
 gameTitle = Label(
     frameTop,
     bg = '#CDCDCD',
     fg = 'black',
-    text = 'minesweeper',
-    font = ('', 16)
+    text = 'MINESWEEPER',
+    font = ('Verdana 10 bold', 32)
 )
-gameTitle.place(x = utils.calcWidth(25), y = 0)
+gameTitle.place(
+    x = utils.calcWidth(25), 
+    y = ((frameTop.winfo_height()) // 2) - 21
+)
 
 frameLS = Frame(
     win, 
     bg = '#CDCDCD', 
-    width = utils.calcWidth(20), 
+    width = utils.calcWidth(25), 
     height = utils.calcHeight(80)
 )
 frameLS.place(
@@ -57,22 +62,22 @@ frameLS.place(
 frameCent = Frame(
     win, 
     bg = '#CDCDCD', 
-    width = utils.calcWidth(60), 
+    width = utils.calcWidth(70), 
     height = utils.calcHeight(80)
 )
 frameCent.place(
-    x = utils.calcWidth(20), 
+    x = utils.calcWidth(25), 
     y = utils.calcHeight(15)
 )
 
 frameRS = Frame(
     win, 
     bg = '#CDCDCD', 
-    width = utils.calcWidth(20), 
+    width = utils.calcWidth(5), 
     height = utils.calcHeight(80)
 )
 frameRS.place(
-    x = utils.calcWidth(80), 
+    x = utils.calcWidth(95), 
     y = utils.calcHeight(15)
 )
 

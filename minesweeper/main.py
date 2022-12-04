@@ -1,10 +1,10 @@
 # > this is a widely accepted and useful library used for creating 2D games with python
 from tkinter import *
-import tkinter as tk
 # > imports our class from our file
 from cell import Cell
 import settings # > need to import our other py file
 import utils
+
 
 # > create a window
 win = Tk()
@@ -23,8 +23,16 @@ win.title("Minesweeper_v1.0")
 
 
 # > this creates a new frame on our window
-frameTop = Frame(win, bg = '#CDCDCD', width = settings.mainW, height = utils.calcHeight(15))
-frameTop.place(x = 0, y = 0)
+frameTop = Frame(
+    win, 
+    bg = '#CDCDCD', 
+    width = settings.mainW, 
+    height = utils.calcHeight(15)
+)
+frameTop.place(
+    x = 0, 
+    y = 0
+)
 
 gameTitle = Label(
     frameTop,
@@ -35,21 +43,52 @@ gameTitle = Label(
 )
 gameTitle.place(x = utils.calcWidth(25), y = 0)
 
-frameLS = Frame(win, bg = '#CDCDCD', width = utils.calcWidth(20), height = utils.calcHeight(80))
-frameLS.place(x = 0, y = utils.calcHeight(15))
+frameLS = Frame(
+    win, 
+    bg = '#CDCDCD', 
+    width = utils.calcWidth(20), 
+    height = utils.calcHeight(80)
+)
+frameLS.place(
+    x = 0, 
+    y = utils.calcHeight(15)
+)
 
-frameCent = Frame(win, bg = '#CDCDCD', width = utils.calcWidth(60), height = utils.calcHeight(80))
-frameCent.place(x = utils.calcWidth(20), y = utils.calcHeight(15))
+frameCent = Frame(
+    win, 
+    bg = '#CDCDCD', 
+    width = utils.calcWidth(60), 
+    height = utils.calcHeight(80)
+)
+frameCent.place(
+    x = utils.calcWidth(20), 
+    y = utils.calcHeight(15)
+)
 
-frameRS = Frame(win, bg = '#CDCDCD', width = utils.calcWidth(20), height = utils.calcHeight(80))
-frameRS.place(x = utils.calcWidth(80), y = utils.calcHeight(15))
+frameRS = Frame(
+    win, 
+    bg = '#CDCDCD', 
+    width = utils.calcWidth(20), 
+    height = utils.calcHeight(80)
+)
+frameRS.place(
+    x = utils.calcWidth(80), 
+    y = utils.calcHeight(15)
+)
 
-frameBot = Frame(win, bg = '#CDCDCD', width = settings.mainW, height = utils.calcHeight(5))
-frameBot.place(x = 0, y = utils.calcHeight(95)) 
+frameBot = Frame(
+    win, 
+    bg = '#CDCDCD', 
+    width = settings.mainW, 
+    height = utils.calcHeight(5)
+)
+frameBot.place(
+    x = 0, 
+    y = utils.calcHeight(95)
+) 
 
 win.update()
 
-# > print(f'''width is {frameCent.winfo_height()}, requested width is {frameCent.winfo_reqheight()}''')
 
 for i in range(settings.gridLen):
     for j in range(settings.gridLen):
